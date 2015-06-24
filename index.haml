@@ -1,0 +1,36 @@
+!!!5
+
+%title Block Memories!
+%meta(charset="utf-8")
+
+%link(href="styles.css" rel="stylesheet")
+
+%div.container
+  %h1
+    %i RANDOM
+    &nbsp;BLOCK MEMORIES!
+
+  %div.hearts
+    %span.hearts__item.is-visible ❤
+    %span.hearts__item.is-visible ❤
+    %span.hearts__item.is-visible ❤
+
+  %div.block__container
+    %div.block__item(data-counter="2")
+    %div.block__item(data-counter="8")
+    %div.block__item(data-counter="5")
+    %div.block__item(data-counter="7")
+    %div.block__item(data-counter="1")
+    %div.block__item(data-counter="9")
+    %div.block__item(data-counter="4")
+    %div.block__item(data-counter="3")
+    %div.block__item(data-counter="6")
+
+
+%aside.modal--success
+  %h1 Great job!
+
+%aside.modal--fail
+  %h1 Game over, man!
+
+%script(defer async src="main.js")

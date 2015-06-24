@@ -1,0 +1,158 @@
+$color-primary   : #ecf0f1; // Clouds
+$color-secondary :    #fff;
+$color-tertiary  : #1abc9c; // Green
+$color-quandary  : #e74c3c; // Red
+
+body {
+  background: $color-primary;
+  font-family: Arial;
+}
+
+h1 {
+  color: #FF6363;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 2px 2px #1abc9c;
+
+  i {
+    font-style: normal;
+    text-decoration: line-through;
+  }
+
+}
+
+.hearts {
+  position: fixed;
+    top: 2rem; right: 2rem;
+
+  &__item {
+    color: $color-quandary;
+    margin-left: .5rem;
+    opacity: 0;
+    position: relative;
+    text-align: center;
+
+    transition: all .3s;
+
+    top: 0;
+    font-size: 3rem;
+    opacity: 0;
+
+    transform: scale(.5);
+
+    &.is-visible {
+      top: 0;
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.block {
+  &__container {
+    margin: 0 auto;
+    width: 60vw;
+
+    perspective: 1000;
+  }
+
+  &__item {
+    background: $color-secondary;
+    border: solid 5px $color-primary;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 3rem;
+    overflow: hidden;
+    padding: 2rem;
+    text-align: center;
+    width: 33%;
+
+    //backface-visibility: hidden;
+    transform-style: preserve-3d;
+
+    transition: transform .2s ease-in-out;
+
+    position: relative;
+
+
+    &::before {
+      background: #1abc9c;
+      content: "";
+      display: block;
+      height: 100%; width: 100%;
+      position: absolute;
+        top: 0; left: 0; z-index: 1;
+      transition: transform .2s ease-in-out;
+
+      backface-visibility: hidden;
+      transform: rotateX(180deg);
+    }
+
+    &.is-clicked {
+      transform: rotateX(180deg);
+      //pointer-events: none;
+
+      &::before {
+        transform: rotateX(0);
+      }
+
+      &::after { opacity: 1; }
+    }
+
+    &::after {
+      content: attr(data-counter);
+      display: block;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: rotateX(180deg);
+    }
+
+    &:hover:not(.is-clicked) {
+      box-shadow: inset 0 0 0 1rem darken($color-secondary, 10%);
+    }
+  }
+}
+
+%modal {
+  color: $color-secondary;
+
+  line-height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  width:100%;
+
+  position: fixed;
+    top: 0; left: 0; z-index: 10;
+
+  animation: {
+    duration: 2s;
+  }
+
+  h1 {
+    color: currentColor;
+    margin: 0;
+    font-size: 7rem;
+    text-shadow: none;
+  }
+}
+
+.modal {
+  &--success {
+    @extend %modal;
+    background: $color-tertiary;
+  }
+
+  &--fail {
+    @extend %modal;
+    background: $color-quandary;
+  }
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  70% { opacity: 1; }
+  to { opacity: 0; }
+}
